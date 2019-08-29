@@ -1,13 +1,12 @@
 # Clock-in Kata JavaScript/JQuery
 
 This is a JavaScript [npm](https://www.npmjs.com/) project.
-It is legacy ES5 and uses JQuery promises.
-[Mocha](https://mochajs.org/) and [Sinon.JS](http://sinonjs.org/)
-are provided as dependencies.
+The `src` is legacy ES5 and uses JQuery promises.
+The tests use [Mocha](https://mochajs.org/) and [Sinon.JS](http://sinonjs.org/).
 
 * Verify your Node installation with `npm --version`.
 * Run `npm install` to install the required packages.
-* Run `npm test` to verify your setup and run the tests. You should see a test failure.
+* Run `npm test` to verify your setup and run the tests. You should see several green tests.
 
 ## Assigment
 
