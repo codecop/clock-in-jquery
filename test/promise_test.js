@@ -1,20 +1,14 @@
 /* globals describe, it */
 "use strict";
 
+// see https://gist.github.com/robballou/9ee108758dc5e0e2d028
+
+var { JSDOM } = require('jsdom');
+var jquery = require('jquery');
 var chai = require('chai');
 var should = chai.should();
-// https://gist.github.com/robballou/9ee108758dc5e0e2d028
 
-//var jsdom = require('jsdom');
-//var html = "<html><body></body></html>";
-//var doc = jsdom.jsdom(html);
-//var window = doc.parentWindow;
-
-const { JSDOM } = require('jsdom');
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
-const { window } = jsdom;
-
-var $ = global.jQuery = require('jquery')(window);
+var window, document, $;
 
 function one() {
     var d = $.Deferred();
@@ -26,6 +20,16 @@ function one() {
 describe("jQuery infrastructure", function() {
 
     // see https://www.sitepoint.com/introduction-jquery-deferred-objects/
+
+    var jsdom;
+
+    beforeEach(function() {
+        jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+        window = jsdom.window;
+        document = window.document;
+
+        $ = jquery(window);
+    });
 
     it("supports Promise chaining", function(done) {
         one().done(function(result) {
