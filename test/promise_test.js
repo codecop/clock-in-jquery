@@ -1,4 +1,4 @@
-/* globals describe, it */
+/* globals describe, beforeEach, it */
 "use strict";
 
 // see https://gist.github.com/robballou/9ee108758dc5e0e2d028
@@ -16,6 +16,7 @@ function one() {
     // d.reject("something bad happened");
     return d.promise();
 }
+var two = require('../src/promise').two;
 
 describe("jQuery infrastructure", function() {
 
@@ -29,6 +30,7 @@ describe("jQuery infrastructure", function() {
         document = window.document;
 
         $ = jquery(window);
+        global.$ = $; // populating it in the test via global namespace for module.
     });
 
     it("supports Promise chaining", function(done) {
@@ -42,6 +44,13 @@ describe("jQuery infrastructure", function() {
         one().done(function(result) {
             result.should.equal(1);
         }).always(function() {
+            done();
+        });
+    });
+
+    it("works for other modules", function(done) {
+        two().done(function(result) {
+            result.should.equal(2);
             done();
         });
     });
