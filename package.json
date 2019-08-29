@@ -1,6 +1,6 @@
 {
-  "name": "clock-in",
-  "description": "ClockIn Kata JavaScript with Mocha, Sinon and Chai",
+  "name": "clock-in-jquery",
+  "description": "ClockIn Kata JavaScript/jQuery with Mocha, Sinon and Chai",
   "version": "1.0.0",
   "author": "Peter 'Code Cop' Kofler",
   "license": "BSD-3-Clause",
