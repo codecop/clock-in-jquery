@@ -6,7 +6,7 @@
   "license": "BSD-3-Clause",
   "readmeFilename": "README.md",
   "dependencies": {
-    "jquery": "3.4.1"
+    "jquery": "2.2.3"
   },
   "devDependencies": {
     "chai": "4.2.0",
