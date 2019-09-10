@@ -12,6 +12,22 @@ var window, document, $;
 
 var clockIn = require('../src/clockIn').clockIn;
 
+function shouldNotBeCalled() {
+    should.fail();
+}
+
+function resolvedPromise(data) {
+    var d = $.Deferred();
+    d.resolve(data);
+    return d.promise();
+}
+
+function rejectedPromise(data) {
+    var d = $.Deferred();
+    d.reject(data);
+    return d.promise();
+}
+
 describe("clockIn()", function () {
 
     // see https://www.sitepoint.com/introduction-jquery-deferred-objects/
@@ -29,49 +45,34 @@ describe("clockIn()", function () {
 
     it("clockIn should send request with timestamp and user id and report success", function (done) {
         var ajaxHasBeenCalled = false;
-        var mockAjax = function (url, data) {
+        function mockAjax(url, data) {
             ajaxHasBeenCalled = true;
             url.should.be.equal("https://timeservice.com/api/clock-in");
             data.should.deep.equal({
                 timestamp: "01.01.2019 12:55",
                 userId: 1123
             });
-            
-            var d = $.Deferred();
-            d.resolve({
-                statusCode: 200
-            });
-            return d.promise();
-        }
-        var success = function () {
+
+            return resolvedPromise({ statusCode: 200 });
+        };
+        function success() {
             ajaxHasBeenCalled.should.be.equal(true);
             done();
-        }
+        };
 
-        var failure = function () {
-            true.should.be.equal(false);
-        }
-
-        clockIn(mockAjax, success, failure);
+        clockIn(mockAjax, success, shouldNotBeCalled);
     });
 
     it("clockIn should report error 400", function (done) {
-        var mockAjax = function (url, data) {
-            var d = $.Deferred();
-            d.reject({
-                statusCode: 400
-            });
-            return d.promise();
-        }
-        var success = function () {
-            should.fail();
-        }
+        function mockAjax(url, data) {
+            return rejectedPromise({ statusCode: 400 });
+        };
 
-        var failure = function (message) {
+        function failure(message) {
             message.should.be.equal('Please no, don\'t do this, 400');
             done();
-        }
+        };
 
-        clockIn(mockAjax, success, failure);
+        clockIn(mockAjax, shouldNotBeCalled, failure);
     });
 });
