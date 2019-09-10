@@ -46,10 +46,14 @@ If you want to get more challenging you can go the next steps like this:
 
 ### 1: 2019-09-10
 
-* tbd
+* 2,5 hours for setup, introduction, first 2 testcases
 * Programmer joke
 - https://indexandmain.com/post/shrink-node-modules-with-refining/node_modules_meme.png
+
 Retrospective
-
-* tbd
-
+* did not use JS long time in the sessions
+* mock and stub in JS 
+* trying new stuff in JS (NodeJS) ||||
+* promises topic
+* useful git discussion |||||
+* good to have CodeCop back
