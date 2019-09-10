@@ -53,15 +53,5 @@ describe("clockIn()", function () {
         }
 
         clockIn(mockAjax, success, failure);
-
-        // clockIn();
-        // Send request 
-        //   Body: {timestamp: 'DD.MM.YYYY HH:mm', userId: 1 }
-        //   Url: hardcoded timeservice.com/api/clock-in
-        //   Method: POST
-        //   Response: 200
-        // Success callback called
-
     });
-
 });
