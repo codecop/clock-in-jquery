@@ -47,7 +47,8 @@ If you want to get more challenging you can go the next steps like this:
 ### 1: 2019-09-10
 
 * tbd
-
+* Programmer joke
+- https://indexandmain.com/post/shrink-node-modules-with-refining/node_modules_meme.png
 Retrospective
 
 * tbd
