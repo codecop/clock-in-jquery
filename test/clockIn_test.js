@@ -54,4 +54,24 @@ describe("clockIn()", function () {
 
         clockIn(mockAjax, success, failure);
     });
+
+    it("clockIn should report error 400", function (done) {
+        var mockAjax = function (url, data) {
+            var d = $.Deferred();
+            d.reject({
+                statusCode: 400
+            });
+            return d.promise();
+        }
+        var success = function () {
+            should.fail();
+        }
+
+        var failure = function (message) {
+            message.should.be.equal('Please no, don\'t do this, 400');
+            done();
+        }
+
+        clockIn(mockAjax, success, failure);
+    });
 });

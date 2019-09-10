@@ -7,7 +7,9 @@ function clockIn(ajax, success, failure) {
         timestamp: timestamp,
         userId: userId
     }).done(success)
-        .fail(failure);
+        .fail(function (data) {
+            failure('Please no, don\'t do this, ' + data.statusCode);
+        });
 }
 
 if (typeof window === "undefined") {
