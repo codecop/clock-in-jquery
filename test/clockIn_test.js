@@ -32,11 +32,11 @@ describe("clockIn()", function () {
         var mockAjax = function (url, data) {
             ajaxHasBeenCalled = true;
             url.should.be.equal("https://timeservice.com/api/clock-in");
-            data.should.be.equal({
+            data.should.deep.equal({
                 timestamp: "01.01.2019 12:55",
                 userId: 1123
             });
-
+            
             var d = $.Deferred();
             d.resolve({
                 statusCode: 200
