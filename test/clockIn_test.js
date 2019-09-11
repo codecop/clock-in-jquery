@@ -17,6 +17,7 @@ function shouldNotBeCalled() {
 }
 
 function resolvedPromise(data) {
+    // see https://www.sitepoint.com/introduction-jquery-deferred-objects/
     var d = $.Deferred();
     d.resolve(data);
     return d.promise();
@@ -28,13 +29,11 @@ function rejectedPromise(data) {
     return d.promise();
 }
 
-describe("clockIn()", function () {
-
-    // see https://www.sitepoint.com/introduction-jquery-deferred-objects/
+describe("clockIn", function() {
 
     var jsdom;
 
-    beforeEach(function () {
+    beforeEach(function() {
         jsdom = new JSDOM('<!doctype html><html><body></body></html>');
         window = jsdom.window;
         document = window.document;
@@ -43,10 +42,11 @@ describe("clockIn()", function () {
         global.$ = $; // populating it in the test via global namespace for module.
     });
 
-    it("clockIn should send request with timestamp and user id and report success", function (done) {
+    it("should send request with timestamp/user id and report success", function(done) {
         var ajaxHasBeenCalled = false;
         function mockAjax(url, data) {
             ajaxHasBeenCalled = true;
+
             url.should.be.equal("https://timeservice.com/api/clock-in");
             data.should.deep.equal({
                 timestamp: "01.01.2019 12:55",
@@ -55,6 +55,7 @@ describe("clockIn()", function () {
 
             return resolvedPromise({ statusCode: 200 });
         };
+
         function success() {
             ajaxHasBeenCalled.should.be.equal(true);
             done();
@@ -63,7 +64,7 @@ describe("clockIn()", function () {
         clockIn(mockAjax, success, shouldNotBeCalled);
     });
 
-    it("clockIn should report error 400", function (done) {
+    it("should report error 400", function(done) {
         function mockAjax(url, data) {
             return rejectedPromise({ statusCode: 400 });
         };
@@ -75,4 +76,5 @@ describe("clockIn()", function () {
 
         clockIn(mockAjax, shouldNotBeCalled, failure);
     });
+
 });
