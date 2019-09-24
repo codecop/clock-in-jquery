@@ -31,11 +31,11 @@ function rejectedPromise(data) {
     return d.promise();
 }
 
-describe("clockIn", function() {
+describe("clockIn", function () {
 
     var jsdom;
 
-    beforeEach(function() {
+    beforeEach(function () {
         jsdom = new JSDOM('<!doctype html><html><body></body></html>');
         window = jsdom.window;
         document = window.document;
@@ -44,7 +44,7 @@ describe("clockIn", function() {
         global.$ = $; // populating it in the test via global namespace for module.
     });
 
-    it("should send request with timestamp/user id and report success", function(done) {
+    it("should send request with timestamp/user id and report success", function (done) {
         var ajaxHasBeenCalled = false;
         function mockAjax(url, data) {
             ajaxHasBeenCalled = true;
@@ -63,10 +63,12 @@ describe("clockIn", function() {
             done();
         }
 
-        clockIn(mockAjax, shouldNotBeCalled, shouldNotBeCalled).done(success).fail(shouldNotBeCalled);
+        clockIn(mockAjax)
+            .done(success)
+            .fail(shouldNotBeCalled);
     });
 
-    it("should report error 400", function(done) {
+    it("should report error 400", function (done) {
         function mockAjax(url, data) {
             return rejectedPromise({ statusCode: 400 });
         }
@@ -76,7 +78,9 @@ describe("clockIn", function() {
             done();
         }
 
-        clockIn(mockAjax, shouldNotBeCalled, shouldNotBeCalled).done(shouldNotBeCalled).fail(failure);
+        clockIn(mockAjax)
+            .done(shouldNotBeCalled)
+            .fail(failure);
     });
 
 });
