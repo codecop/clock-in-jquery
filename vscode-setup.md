@@ -8,7 +8,7 @@ Nice plugins
 
 * Todo Tree
 * Code Spell Checker
-* makrdownlint
+* markdownlint
 
 Fun plugins
 
