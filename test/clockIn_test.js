@@ -31,13 +31,16 @@ function rejectedPromise(data) {
     return d.promise();
 }
 
-function mockMoment() {
-    return "01.02.2019 12:55";
-}
-
 describe("clockIn", function () {
-
     var jsdom;
+    var currentMoment;
+
+    function mockMoment() {
+        return currentMoment;
+    }
+    function givenMomentIs(newMoment) {
+        currentMoment = newMoment;
+    }
 
     beforeEach(function () {
         jsdom = new JSDOM('<!doctype html><html><body></body></html>');
@@ -46,9 +49,12 @@ describe("clockIn", function () {
 
         $ = jquery(window);
         global.$ = $; // populating it in the test via global namespace for module.
+
+        currentMoment = "01.05.2019 12:55";
     });
 
     it("should send request with timestamp/user id and report success", function (done) {
+        givenMomentIs("01.02.2019 12:55");
         var ajaxHasBeenCalled = false;
         function mockAjax(url, data) {
             ajaxHasBeenCalled = true;

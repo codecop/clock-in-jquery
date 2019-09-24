@@ -65,7 +65,8 @@ Retrospective
 
 ### 2: 2019-09-17
 
-* xh ... tbd
+* 2 h ... Refactor callbacks towards promises.
+
 
 Developer Joke: [tbd](tbd)
 
