@@ -2,13 +2,16 @@
 "use strict";
 var endpointUrl = "https://timeservice.com/api/clock-in";
 
+/**
+ * @param {(url: string, data: { timestamp: string; userId: number; }) =>
+ *          JQuery.Promise<{statusCode: number}, {statusCode: number}, any>} ajax
+ * @returns {JQuery.Promise<{statusCode: number}, string, any>}
+ */
 function clockIn(ajax) {
     var timestamp = "01.01.2019 12:55";
     var userId = 1123;
 
     // TODO extract payload to local variable
-    // TODO extract failure callback to dedicated/module function
-    // TODO setup VSCode to see warning about any type -> add annotations
 
     return $.Deferred(function (deferred) {
         ajax(endpointUrl, {

@@ -9,6 +9,7 @@
     "jquery": "2.2.3"
   },
   "devDependencies": {
+    "@types/jquery": "3.3.31",
     "@types/mocha": "5.2.7",
     "chai": "4.2.0",
     "jsdom": "15.1.1",
