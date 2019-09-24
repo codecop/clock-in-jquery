@@ -108,4 +108,36 @@ describe("clockIn", function () {
             .fail(shouldTimeout);
     });
 
+    it("should send request with GPS and report OK ", function (done) {
+        givenMomentIs("01.02.2019 12:55");
+
+        function mockGPS() {
+            return resolvedPromise({
+                x: 100,
+                y: 200
+            });
+        }
+
+        function mockAjax(url, data) {
+            url.should.be.equal("https://timeservice.com/api/clock-in");
+            data.should.deep.equal({
+                timestamp: "01.02.2019 12:55",
+                userId: 1123,
+                gps: {
+                    x: 100,
+                    y: 200
+                }
+            });
+
+            return resolvedPromise({ statusCode: 200 });
+        }
+
+        function success() {
+            done();
+        }
+
+        clockIn(mockAjax, mockMoment, mockGPS)
+            .done(success)
+            .fail(shouldNotBeCalled);
+    });
 });
