@@ -9,12 +9,14 @@
     "jquery": "2.2.3"
   },
   "devDependencies": {
+    "@types/mocha": "5.2.7",
     "chai": "4.2.0",
     "jsdom": "15.1.1",
     "jshint": "2.10.2",
     "mocha": "5.2.0",
     "sinon": "3.2.1",
-    "tslint": "5.17.0"
+    "tslint": "5.17.0",
+    "typescript": "3.6.3"
   },
   "scripts": {
     "test": "mocha",
