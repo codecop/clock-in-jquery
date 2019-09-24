@@ -9,14 +9,19 @@ function clockIn(ajax, success, failure) {
     // TODO extract failure callback to dedicated/module function
     // TODO setup VSCode to see warning about any type -> add annotations
     // TODO we are in world of Promise, we are not using callbacks but returning the Promise!
+    var deferred = $.Deferred();
 
-    return ajax(endpointUrl, {
+    ajax(endpointUrl, {
         timestamp: timestamp,
         userId: userId
-    })
-        .fail(function(data) {
-            failure('Please no, don\'t do this, ' + data.statusCode);
-        });
+    }).done(function (response) {
+        deferred.resolve(response);
+    }).fail(function (data) {
+        // failure('Please no, don\'t do this, ' + data.statusCode);
+        //return 'Please no, don\'t do this, ' + data.statusCode;
+        deferred.reject('Please no, don\'t do this, ' + data.statusCode);
+    });
+    return deferred.promise();
 }
 
 if (typeof window === "undefined") {

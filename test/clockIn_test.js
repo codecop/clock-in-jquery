@@ -76,7 +76,7 @@ describe("clockIn", function() {
             done();
         }
 
-        clockIn(mockAjax, shouldNotBeCalled, failure);
+        clockIn(mockAjax, shouldNotBeCalled, shouldNotBeCalled).done(shouldNotBeCalled).fail(failure);
     });
 
 });
