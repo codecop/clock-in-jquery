@@ -31,6 +31,10 @@ function rejectedPromise(data) {
     return d.promise();
 }
 
+function mockMoment() {
+    return "01.02.2019 12:55";
+}
+
 describe("clockIn", function () {
 
     var jsdom;
@@ -51,7 +55,7 @@ describe("clockIn", function () {
 
             url.should.be.equal("https://timeservice.com/api/clock-in");
             data.should.deep.equal({
-                timestamp: "01.01.2019 12:55",
+                timestamp: "01.02.2019 12:55",
                 userId: 1123
             });
 
@@ -63,7 +67,7 @@ describe("clockIn", function () {
             done();
         }
 
-        clockIn(mockAjax)
+        clockIn(mockAjax, mockMoment)
             .done(success)
             .fail(shouldNotBeCalled);
     });
@@ -78,7 +82,7 @@ describe("clockIn", function () {
             done();
         }
 
-        clockIn(mockAjax)
+        clockIn(mockAjax, mockMoment)
             .done(shouldNotBeCalled)
             .fail(failure);
     });
@@ -93,7 +97,7 @@ describe("clockIn", function () {
             done();
         }
 
-        clockIn(mockAjax)
+        clockIn(mockAjax, mockMoment)
             .done(shouldNotBeCalled)
             .fail(shouldTimeout);
     });

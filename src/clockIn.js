@@ -5,10 +5,10 @@ var endpointUrl = "https://timeservice.com/api/clock-in";
 /**
  * @param {(url: string, data: { timestamp: string; userId: number; }) =>
  *          JQuery.Promise<{statusCode: number}, {statusCode: number}, any>} ajax
+ * @param {() => string} moment          
  * @returns {JQuery.Promise<{statusCode: number}, string, any>}
  */
-function clockIn(ajax) {
-    var timestamp = "01.01.2019 12:55"; // TODO: Real timestamp
+function clockIn(ajax, moment) {
     var userId = 1123; // TODO: Get it from somewhere
     var timeoutMs = 200; // TODO: configure for PROD
 
@@ -22,7 +22,7 @@ function clockIn(ajax) {
         }, timeoutMs);
 
         ajax(endpointUrl, {
-            timestamp: timestamp,
+            timestamp: moment(),
             userId: userId
         }).done(function (response) {
             deferred.resolve(response);
