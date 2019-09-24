@@ -83,4 +83,19 @@ describe("clockIn", function () {
             .fail(failure);
     });
 
+    it("should report timeout", function (done) {
+        function mockAjax(url, data) {
+            return $.Deferred().promise();
+        }
+
+        function shouldTimeout(message) {
+            message.should.be.equal('TIMEOUT!!!');
+            done();
+        }
+
+        clockIn(mockAjax)
+            .done(shouldNotBeCalled)
+            .fail(shouldTimeout);
+    });
+
 });

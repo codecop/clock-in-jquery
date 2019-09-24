@@ -14,12 +14,16 @@ function clockIn(ajax) {
     // TODO extract payload to local variable
 
     return $.Deferred(function (deferred) {
+        setTimeout(function() {
+            deferred.reject('TIMEOUT!!!');
+        }, 200);
+
         ajax(endpointUrl, {
             timestamp: timestamp,
             userId: userId
         }).done(function (response) {
             deferred.resolve(response);
-        }).fail(function (data) {
+        }).fail(function (data) {            
             deferred.reject('Please no, don\'t do this, ' + data.statusCode);
         });
     }).promise();
