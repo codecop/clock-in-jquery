@@ -5,6 +5,7 @@ var expect = require('chai').expect;
 var sinon = require('sinon');
 
 function Foo() {
+    // Bar
 }
 
 Foo.prototype.parse = function(value) {

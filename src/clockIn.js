@@ -1,3 +1,4 @@
+"use strict";
 var endpointUrl = "https://timeservice.com/api/clock-in";
 
 function clockIn(ajax, success, failure) {

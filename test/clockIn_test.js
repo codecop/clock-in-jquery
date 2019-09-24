@@ -8,7 +8,9 @@ var jquery = require('jquery');
 var chai = require('chai');
 var should = chai.should();
 
-var window, document, $;
+var window;
+var document;
+var $;
 
 var clockIn = require('../src/clockIn').clockIn;
 
@@ -54,12 +56,12 @@ describe("clockIn", function() {
             });
 
             return resolvedPromise({ statusCode: 200 });
-        };
+        }
 
         function success() {
             ajaxHasBeenCalled.should.be.equal(true);
             done();
-        };
+        }
 
         clockIn(mockAjax, success, shouldNotBeCalled);
     });
@@ -67,12 +69,12 @@ describe("clockIn", function() {
     it("should report error 400", function(done) {
         function mockAjax(url, data) {
             return rejectedPromise({ statusCode: 400 });
-        };
+        }
 
         function failure(message) {
             message.should.be.equal('Please no, don\'t do this, 400');
             done();
-        };
+        }
 
         clockIn(mockAjax, shouldNotBeCalled, failure);
     });
