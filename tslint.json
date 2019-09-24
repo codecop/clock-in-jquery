@@ -6,7 +6,8 @@
     "jsRules": {
         "object-literal-sort-keys": false,
         "trailing-comma": false,
-        "quotemark": false
+        "quotemark": false,
+        "space-before-function-paren": [true, {"anonymous": "always", "named": "never"}]
     },
     "rules": {
     },

@@ -8,15 +8,15 @@ function Foo() {
     // Bar
 }
 
-Foo.prototype.parse = function(value) {
+Foo.prototype.parse = function (value) {
     return true;
 };
 
-describe('Sinon infrastructure', function() {
+describe('Sinon infrastructure', function () {
 
     // see "https://sinonjs.org/"
 
-    it('should assert with Sinon', function() {
+    it('should assert with Sinon', function () {
         // arrange
         sinon.stub(Foo.prototype, 'parse').callsFake((value) => false);
         var foo = new Foo();
