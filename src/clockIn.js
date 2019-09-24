@@ -10,10 +10,10 @@ function clockIn(ajax, success, failure) {
     // TODO setup VSCode to see warning about any type -> add annotations
     // TODO we are in world of Promise, we are not using callbacks but returning the Promise!
 
-    ajax(endpointUrl, {
+    return ajax(endpointUrl, {
         timestamp: timestamp,
         userId: userId
-    }).done(success)
+    })
         .fail(function(data) {
             failure('Please no, don\'t do this, ' + data.statusCode);
         });

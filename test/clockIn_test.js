@@ -63,7 +63,7 @@ describe("clockIn", function() {
             done();
         }
 
-        clockIn(mockAjax, success, shouldNotBeCalled);
+        clockIn(mockAjax, shouldNotBeCalled, shouldNotBeCalled).done(success).fail(shouldNotBeCalled);
     });
 
     it("should report error 400", function(done) {
