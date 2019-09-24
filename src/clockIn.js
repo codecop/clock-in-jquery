@@ -8,22 +8,25 @@ var endpointUrl = "https://timeservice.com/api/clock-in";
  * @returns {JQuery.Promise<{statusCode: number}, string, any>}
  */
 function clockIn(ajax) {
-    var timestamp = "01.01.2019 12:55";
-    var userId = 1123;
+    var timestamp = "01.01.2019 12:55"; // TODO: Real timestamp
+    var userId = 1123; // TODO: Get it from somewhere
+    var timeoutMs = 200; // TODO: configure for PROD
 
     // TODO extract payload to local variable
 
     return $.Deferred(function (deferred) {
-        setTimeout(function() {
+        setTimeout(function () {
+            //if (!deferred.isResolved()) { // Supported in later versions of jQuery
             deferred.reject('TIMEOUT!!!');
-        }, 200);
+            //}
+        }, timeoutMs);
 
         ajax(endpointUrl, {
             timestamp: timestamp,
             userId: userId
         }).done(function (response) {
             deferred.resolve(response);
-        }).fail(function (data) {            
+        }).fail(function (data) {
             deferred.reject('Please no, don\'t do this, ' + data.statusCode);
         });
     }).promise();
