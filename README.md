@@ -63,19 +63,36 @@ Retrospective
 * useful git discussion |||||
 * good to have CodeCop back
 
-### 2: 2019-09-17
+### 2: 2019-09-24
 
 * 2 h ... Refactor callbacks towards promises.
+* 2 h ... Timestamp and GPS coordinates
 
+Developer Joke: [Real.I mean the real. Perfection.](https://i.redd.it/05b6u19pseoz.png)
+
+Retrospective
+
+* Pretty intense, tech (Jquery) is more problem than C#
+* I liked it.
+* Perfection with the linting. Type annotations make sense. ||
+  * if we use it ;-)
+* I liked the new stuff. ||
+  * I like new plugins ||||
+* Was overwhelmed, lost in changes.
+* I was lost with promises. ||
+* Two test cases nice.
+* White hard session, promise is difficult.
+* Phone times does not stop |||
+
+### 3: 2019-10-xx
+
+* x h ... tbd
 
 Developer Joke: [tbd](tbd)
 
 Retrospective
 
 * tbd
-
-
-
 
 
 ### License
