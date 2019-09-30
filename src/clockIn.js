@@ -5,8 +5,8 @@ var endpointUrl = "https://timeservice.com/api/clock-in";
 /**
  * @param {(url: string, data: { timestamp: string; userId: number; }) =>
  *          JQuery.Promise<{statusCode: number}, {statusCode: number}, any>} ajax
- * @param {() => string} moment    
- * @param {() => JQuery.Promise<{ x: number, y: number}, string, any>=} gps      
+ * @param {() => string} moment
+ * @param {() => JQuery.Promise<{ x: number, y: number}, string, any>=} gps
  * @returns {JQuery.Promise<{statusCode: number}, string, any>}
  */
 function clockIn(ajax, moment, gps) {
@@ -35,7 +35,7 @@ function clockIn(ajax, moment, gps) {
                 ajax(endpointUrl, result).done(function (response) {
                     deferred.resolve(response);
                 }).fail(function (data) {
-                    deferred.reject('Please no, don\'t do this, ' + data.statusCode);
+                    deferred.reject('Please no, don\'t do this, ' + data.statusCode); // TODO coverage
                 });
             });
         } else {
