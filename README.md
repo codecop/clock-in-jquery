@@ -26,7 +26,7 @@ Or in other words: the "boss" can determine
 2) GPS can be optionally added to the XHR data to be sent, getting GPS is async too,
 3) require GPS data to be sent with the XHR
 
-### Where to start?
+### Where to start
 
 * start with case 1), the simplest
 * mock/stub the actual XHR and build all cases including error cases that might happen when sending an XHR
@@ -56,44 +56,44 @@ Developer Joke: [Weight of node_modules](https://indexandmain.com/post/shrink-no
 
 Retrospective
 
-* we did not use JS long time in the sessions
-* see how to mock and stub in JS
-* trying new stuff in JS (NodeJS) + ||||
-* promises topic +
+* good to have Code Cop back
 * useful git discussion |||||
-* good to have CodeCop back
+* we did not use JS long time in the sessions
+* seen how to mock and stub in JS
+* trying new stuff in JS (NodeJS) good ||||
+* promises topic good
 
 ### 2: 2019-09-24
 
-* 2 h ... Refactor callbacks towards promises.
-* 2 h ... Timestamp and GPS coordinates
+* 2 h ... introduce linter, refactor callbacks towards promises
+* 2 h ... add timestamp and GPS coordinates
 
 Developer Joke: [Real.I mean the real. Perfection.](https://i.redd.it/05b6u19pseoz.png)
 
 Retrospective
 
-* Pretty intense, tech (Jquery) is more problem than C#
+* Pretty intense, tech (Jquery) is more a problem than C#
 * I liked it.
-* Perfection with the linting. Type annotations make sense. ||
+* Perfection with the linter. ||
+  * Type annotations make sense.
   * if we use it ;-)
 * I liked the new stuff. ||
-  * I like new plugins ||||
+* I like new VS Code plugins ||||
 * Was overwhelmed, lost in changes.
 * I was lost with promises. ||
 * Two test cases nice.
-* White hard session, promise is difficult.
-* Phone times does not stop |||
+* Quite hard session, promise is difficult.
+* New Phone timer does not stop - good. |||
 
-### 3: 2019-10-xx
+### 3: 2019-10-08
 
 * x h ... tbd
 
-Developer Joke: [tbd](tbd)
+Developer Joke: [Html5 Mask](https://twitter.com/nigel_ssj9/status/905016757483487235)
 
 Retrospective
 
 * tbd
-
 
 ### License
 
