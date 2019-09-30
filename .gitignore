@@ -7,4 +7,8 @@ package-lock.json
 .nyc_output
 coverage
 
+# stryker mutation coverage
+.stryker-tmp
+reports
+
 *.bak
