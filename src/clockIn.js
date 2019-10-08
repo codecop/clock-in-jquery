@@ -45,7 +45,7 @@ function timeoutPromiseAfter(timeoutMs, promise) {
 
 function submitClockIn(ajax, payload, promise) {
     ajax(endpointUrl, payload).done(function (response) {
-        promise.resolve(response);
+        promise.resolve('OK');
     }).fail(function (data) {
         promise.reject('Please no, don\'t do this, ' + data.statusCode);
     });

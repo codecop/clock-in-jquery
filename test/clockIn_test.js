@@ -53,91 +53,107 @@ describe("clockIn", function () {
         currentMoment = "01.05.2019 12:55";
     });
 
-    it("should send request with timestamp/user id and report success", function (done) {
-        givenMomentIs("01.02.2019 12:55");
-        var ajaxHasBeenCalled = false;
-        function mockAjax(url, data) {
-            ajaxHasBeenCalled = true;
+    describe("simple", function () {
 
-            url.should.be.equal("https://timeservice.com/api/clock-in");
-            data.should.deep.equal({
-                timestamp: "01.02.2019 12:55",
-                userId: 1123
-            });
+        it("should send request with timestamp/user id and report success", function (done) {
+            givenMomentIs("01.02.2019 12:55");
+            var ajaxHasBeenCalled = false;
+            function mockAjax(url, data) {
+                ajaxHasBeenCalled = true;
 
-            return resolvedPromise({ statusCode: 200 });
-        }
+                url.should.be.equal("https://timeservice.com/api/clock-in");
+                data.should.deep.equal({
+                    timestamp: "01.02.2019 12:55",
+                    userId: 1123
+                });
 
-        function success() {
-            ajaxHasBeenCalled.should.be.equal(true);
-            done();
-        }
+                return resolvedPromise({ statusCode: 200 });
+            }
 
-        clockIn(mockAjax, mockMoment)
-            .done(success)
-            .fail(shouldNotBeCalled);
+            function success(message) {
+                ajaxHasBeenCalled.should.be.equal(true);
+                message.should.be.equal('OK');
+                done();
+            }
+
+            clockIn(mockAjax, mockMoment)
+                .done(success)
+                .fail(shouldNotBeCalled);
+        });
+
+        it("should report error 400", function (done) {
+            function mockAjax(url, data) {
+                return rejectedPromise({ statusCode: 400 });
+            }
+
+            function failure(message) {
+                message.should.be.equal('Please no, don\'t do this, 400');
+                done();
+            }
+
+            clockIn(mockAjax, mockMoment)
+                .done(shouldNotBeCalled)
+                .fail(failure);
+        });
+
+        it("should report timeout", function (done) {
+            function mockAjax(url, data) {
+                return $.Deferred().promise();
+            }
+
+            function shouldTimeout(message) {
+                message.should.be.equal('TIMEOUT!!!');
+                done();
+            }
+
+            clockIn(mockAjax, mockMoment)
+                .done(shouldNotBeCalled)
+                .fail(shouldTimeout);
+        });
     });
 
-    it("should report error 400", function (done) {
-        function mockAjax(url, data) {
-            return rejectedPromise({ statusCode: 400 });
-        }
+    describe("optional GPS", function () {
 
-        function failure(message) {
-            message.should.be.equal('Please no, don\'t do this, 400');
-            done();
-        }
+        it("should send request with GPS and report OK ", function (done) {
+            givenMomentIs("01.02.2019 12:55");
 
-        clockIn(mockAjax, mockMoment)
-            .done(shouldNotBeCalled)
-            .fail(failure);
-    });
-
-    it("should report timeout", function (done) {
-        function mockAjax(url, data) {
-            return $.Deferred().promise();
-        }
-
-        function shouldTimeout(message) {
-            message.should.be.equal('TIMEOUT!!!');
-            done();
-        }
-
-        clockIn(mockAjax, mockMoment)
-            .done(shouldNotBeCalled)
-            .fail(shouldTimeout);
-    });
-
-    it("should send request with GPS and report OK ", function (done) {
-        givenMomentIs("01.02.2019 12:55");
-
-        function mockGPS() {
-            return resolvedPromise({
-                x: 100,
-                y: 200
-            });
-        }
-
-        function mockAjax(url, data) {
-            url.should.be.equal("https://timeservice.com/api/clock-in");
-            data.should.deep.equal({
-                timestamp: "01.02.2019 12:55",
-                userId: 1123,
-                gps: {
+            function mockGPS() {
+                return resolvedPromise({
                     x: 100,
                     y: 200
-                }
-            });
+                });
+            }
 
-            return resolvedPromise({ statusCode: 200 });
-        }
+            function mockAjax(url, data) {
+                url.should.be.equal("https://timeservice.com/api/clock-in");
+                data.should.deep.equal({
+                    timestamp: "01.02.2019 12:55",
+                    userId: 1123,
+                    gps: {
+                        x: 100,
+                        y: 200
+                    }
+                });
 
-        function success() {
-            done();
-        }
+                return resolvedPromise({ statusCode: 200 });
+            }
 
-        clockIn(mockAjax, mockMoment, mockGPS)
-            .done(success)
-            .fail(shouldNotBeCalled);
+            function success() {
+                // TODO : send message "OK, with GPS"
+                done();
+            }
+
+            clockIn(mockAjax, mockMoment, mockGPS)
+                .done(success)
+                .fail(shouldNotBeCalled);
+        });
+
+        // TODO: GPS not working, request OK -> "OK, no GPS"
+
+        // TODO: GPS OK, request failed -> ... existing message
+
+        // TODO: GPS not working, request failed -> ... existing message
+
+
     });
 });
