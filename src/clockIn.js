@@ -14,22 +14,21 @@ function clockIn(ajax, moment, gps) {
     var data = prepareClockIn(moment);
 
     return $.Deferred(function (deferred) {
+        function successWithMessage(message) {
+            return function () {
+                deferred.resolve(message);
+            };
+        }
         timeoutPromiseAfter(timeoutMs, deferred);
         if (gps) {
             gps().done(function (coordinates) {
                 data.gps = coordinates;
-                submitClockIn(ajax, data, deferred).done(function (response) {
-                    deferred.resolve('OK, with GPS');
-                });
-            }).fail(function (response){
-                submitClockIn(ajax, data, deferred).done(function (response) {
-                    deferred.resolve('OK, no GPS');
-                });
+                submitClockIn(ajax, data, deferred).done(successWithMessage('OK, with GPS'));
+            }).fail(function () {
+                submitClockIn(ajax, data, deferred).done(successWithMessage('OK, no GPS'));
             });
         } else {
-            submitClockIn(ajax, data, deferred).done(function (response) {
-                deferred.resolve('OK');
-            });
+            submitClockIn(ajax, data, deferred).done(successWithMessage('OK'));
         }
     }).promise();
 }
