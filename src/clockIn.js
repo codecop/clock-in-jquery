@@ -13,26 +13,24 @@ function clockIn(ajax, moment, gps) {
     return $.Deferred(function (deferred) {
 
         var timeoutMs = 200; // TODO: configure for PROD
-        var data = prepareClockIn();
+        var payload = preparePayload();
 
-        timeoutPromiseAfter();
-        
+        rejectPromiseAfterTimedOut();
+
         if (gps) {
             submitClockInWithGPS();
         } else {
             submitClockInWithoutGPS();
         }
 
-        function prepareClockIn() {
-            var userId = 1123; // TODO: Get it from somewhere
-            var data = {
+        function preparePayload() {
+            return {
                 timestamp: moment(),
-                userId: userId
+                userId: 1123 // TODO: Get it from somewhere
             };
-            return data;
         }
 
-        function timeoutPromiseAfter() {
+        function rejectPromiseAfterTimedOut() {
             setTimeout(function () {
                 //if (!promise.isResolved()) { // Supported in later versions of jQuery
                 deferred.reject('TIMEOUT!!!');
@@ -41,8 +39,11 @@ function clockIn(ajax, moment, gps) {
         }
 
         function submitClockInWithGPS() {
+            if (!gps) {
+                throw new Error('GPS must be set!');
+            }
             gps().done(function (coordinates) {
-                data.gps = coordinates;
+                payload.gps = coordinates;
                 submitClockIn().done(successWithMessage('OK, with GPS'));
             }).fail(function () {
                 submitClockIn().done(successWithMessage('OK, no GPS'));
@@ -54,7 +55,7 @@ function clockIn(ajax, moment, gps) {
         }
 
         function submitClockIn() {
-            return ajax(endpointUrl, data).fail(function (responseData) {
+            return ajax(endpointUrl, payload).fail(function (responseData) {
                 deferred.reject('Please no, don\'t do this, ' + responseData.statusCode);
             });
         }
