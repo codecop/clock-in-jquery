@@ -1,6 +1,6 @@
 # Clock-in kata JavaScript/JQuery
 
-An implementation of Clock-in kata in JavaScript. A project to practice asynchronous programming using Promises and testing them., done in a Randori-styled [Coding Dojo](http://codingdojo.org/WhatIsCodingDojo/), several sessions a 4 hours.
+An implementation of Clock-in kata in JavaScript. A project to practice asynchronous programming using Promises and testing them., done in a Randori-styled [Coding Dojo](http://codingdojo.org/WhatIsCodingDojo/), 3 sessions a 4 hours each.
 
 ## Installation
 
@@ -88,7 +88,7 @@ Retrospective
 ### 3: 2019-10-08
 
 * 1 h ... working on success no GPS branch
-* 2 h ... clean up
+* 2 h ... clean up, finish part 2
 
 Developer Joke: [Html5 Mask](https://twitter.com/nigel_ssj9/status/905016757483487235)
 
@@ -100,6 +100,8 @@ Retrospective
 * good progress on coding ||||
 * mutation coverage |||
 * somebody was tired, maybe have break earlier
+* last session
+* Jan is leaving the team :-(
 
 ### License
 
