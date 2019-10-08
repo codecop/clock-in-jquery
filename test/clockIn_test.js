@@ -173,6 +173,6 @@ describe("clockIn", function () {
 
         // TODO: GPS not working, request failed -> ... existing message
 
-
     });
+
 });
