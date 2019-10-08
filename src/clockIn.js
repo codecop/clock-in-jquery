@@ -23,29 +23,28 @@ function clockIn(ajax, moment, gps) {
             //}
         }, timeoutMs);
 
-        var result = {
+        var data = {
             timestamp: moment(),
             userId: userId
         };
 
-        // TODO: 1) remove duplications
         if (gps) {
             gps().done(function (coordinates) {
-                result.gps = coordinates;
-                ajax(endpointUrl, result).done(function (response) {
-                    deferred.resolve(response);
-                }).fail(function (data) {
-                    deferred.reject('Please no, don\'t do this, ' + data.statusCode); // TODO coverage
-                });
+                data.gps = coordinates;
+                submitClockIn(ajax, data, deferred);
             });
         } else {
-            ajax(endpointUrl, result).done(function (response) {
-                deferred.resolve(response);
-            }).fail(function (data) {
-                deferred.reject('Please no, don\'t do this, ' + data.statusCode);
-            });
+            submitClockIn(ajax, data, deferred);
         }
     }).promise();
+}
+
+function submitClockIn(ajax, payload, promise) {
+    ajax(endpointUrl, payload).done(function (response) {
+        promise.resolve(response);
+    }).fail(function (data) {
+        promise.reject('Please no, don\'t do this, ' + data.statusCode);
+    });
 }
 
 if (typeof window === "undefined") {
