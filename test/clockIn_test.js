@@ -114,7 +114,7 @@ describe("clockIn", function () {
 
     describe("optional GPS", function () {
 
-        it("should send request with GPS and report OK ", function (done) {
+        it("should send request with GPS and report OK", function (done) {
             givenMomentIs("01.02.2019 12:55");
 
             function mockGPS() {
@@ -148,7 +148,26 @@ describe("clockIn", function () {
                 .fail(shouldNotBeCalled);
         });
 
-        // TODO: GPS not working, request OK -> "OK, no GPS"
+        it("should send request with failed GPS and report OK, no GPS", function (done) {
+            givenMomentIs("01.02.2019 12:55");
+
+            function failedGPS() {
+                return rejectedPromise("GPS is not available");
+            }
+
+            function mockAjax(url, data) {
+                return resolvedPromise({ statusCode: 200 });
+            }
+
+            function success(message) {
+                message.should.be.equal('OK, no GPS');
+                done();
+            }
+
+            clockIn(mockAjax, mockMoment, failedGPS)
+                .done(success)
+                .fail(shouldNotBeCalled);
+        });
 
         // TODO: GPS OK, request failed -> ... existing message
 

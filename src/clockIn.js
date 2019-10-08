@@ -21,6 +21,10 @@ function clockIn(ajax, moment, gps) {
                 submitClockIn(ajax, data, deferred).done(function (response) {
                     deferred.resolve('OK, with GPS');
                 });
+            }).fail(function (response){
+                submitClockIn(ajax, data, deferred).done(function (response) {
+                    deferred.resolve('OK, no GPS');
+                });
             });
         } else {
             submitClockIn(ajax, data, deferred).done(function (response) {
