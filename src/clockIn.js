@@ -18,10 +18,14 @@ function clockIn(ajax, moment, gps) {
         if (gps) {
             gps().done(function (coordinates) {
                 data.gps = coordinates;
-                submitClockIn(ajax, data, deferred);
+                submitClockIn(ajax, data, deferred).done(function (response) {
+                    deferred.resolve('OK, with GPS');
+                });
             });
         } else {
-            submitClockIn(ajax, data, deferred);
+            submitClockIn(ajax, data, deferred).done(function (response) {
+                deferred.resolve('OK');
+            });
         }
     }).promise();
 }
@@ -44,9 +48,7 @@ function timeoutPromiseAfter(timeoutMs, promise) {
 }
 
 function submitClockIn(ajax, payload, promise) {
-    ajax(endpointUrl, payload).done(function (response) {
-        promise.resolve('OK');
-    }).fail(function (data) {
+    return ajax(endpointUrl, payload).fail(function (data) {
         promise.reject('Please no, don\'t do this, ' + data.statusCode);
     });
 }

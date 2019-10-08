@@ -138,8 +138,8 @@ describe("clockIn", function () {
                 return resolvedPromise({ statusCode: 200 });
             }
 
-            function success() {
-                // TODO : send message "OK, with GPS"
+            function success(message) {
+                message.should.be.equal('OK, with GPS');
                 done();
             }
 
