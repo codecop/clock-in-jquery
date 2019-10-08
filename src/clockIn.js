@@ -10,24 +10,11 @@ var endpointUrl = "https://timeservice.com/api/clock-in";
  * @returns {JQuery.Promise<{statusCode: number}, string, any>}
  */
 function clockIn(ajax, moment, gps) {
-    var userId = 1123; // TODO: Get it from somewhere
     var timeoutMs = 200; // TODO: configure for PROD
-
-
-    // TODO extract payload to local variable
+    var data = prepareClockIn(moment);
 
     return $.Deferred(function (deferred) {
-        setTimeout(function () {
-            //if (!deferred.isResolved()) { // Supported in later versions of jQuery
-            deferred.reject('TIMEOUT!!!');
-            //}
-        }, timeoutMs);
-
-        var data = {
-            timestamp: moment(),
-            userId: userId
-        };
-
+        timeoutPromiseAfter(timeoutMs, deferred);
         if (gps) {
             gps().done(function (coordinates) {
                 data.gps = coordinates;
@@ -37,6 +24,23 @@ function clockIn(ajax, moment, gps) {
             submitClockIn(ajax, data, deferred);
         }
     }).promise();
+}
+
+function prepareClockIn(moment) {
+    var userId = 1123; // TODO: Get it from somewhere
+    var data = {
+        timestamp: moment(),
+        userId: userId
+    };
+    return data;
+}
+
+function timeoutPromiseAfter(timeoutMs, promise) {
+    setTimeout(function () {
+        //if (!promise.isResolved()) { // Supported in later versions of jQuery
+        promise.reject('TIMEOUT!!!');
+        //}
+    }, timeoutMs);
 }
 
 function submitClockIn(ajax, payload, promise) {
