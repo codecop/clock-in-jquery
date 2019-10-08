@@ -10,50 +10,61 @@ var endpointUrl = "https://timeservice.com/api/clock-in";
  * @returns {JQuery.Promise<{statusCode: number}, string, any>}
  */
 function clockIn(ajax, moment, gps) {
-    var timeoutMs = 200; // TODO: configure for PROD
-    var data = prepareClockIn(moment);
-
     return $.Deferred(function (deferred) {
+
+        var timeoutMs = 200; // TODO: configure for PROD
+        var data = prepareClockIn();
+
+        timeoutPromiseAfter();
+        
+        if (gps) {
+            submitClockInWithGPS();
+        } else {
+            submitClockInWithoutGPS();
+        }
+
+        function prepareClockIn() {
+            var userId = 1123; // TODO: Get it from somewhere
+            var data = {
+                timestamp: moment(),
+                userId: userId
+            };
+            return data;
+        }
+
+        function timeoutPromiseAfter() {
+            setTimeout(function () {
+                //if (!promise.isResolved()) { // Supported in later versions of jQuery
+                deferred.reject('TIMEOUT!!!');
+                //}
+            }, timeoutMs);
+        }
+
+        function submitClockInWithGPS() {
+            gps().done(function (coordinates) {
+                data.gps = coordinates;
+                submitClockIn().done(successWithMessage('OK, with GPS'));
+            }).fail(function () {
+                submitClockIn().done(successWithMessage('OK, no GPS'));
+            });
+        }
+
+        function submitClockInWithoutGPS() {
+            submitClockIn().done(successWithMessage('OK'));
+        }
+
+        function submitClockIn() {
+            return ajax(endpointUrl, data).fail(function (responseData) {
+                deferred.reject('Please no, don\'t do this, ' + responseData.statusCode);
+            });
+        }
+
         function successWithMessage(message) {
             return function () {
                 deferred.resolve(message);
             };
         }
-        timeoutPromiseAfter(timeoutMs, deferred);
-        if (gps) {
-            gps().done(function (coordinates) {
-                data.gps = coordinates;
-                submitClockIn(ajax, data, deferred).done(successWithMessage('OK, with GPS'));
-            }).fail(function () {
-                submitClockIn(ajax, data, deferred).done(successWithMessage('OK, no GPS'));
-            });
-        } else {
-            submitClockIn(ajax, data, deferred).done(successWithMessage('OK'));
-        }
     }).promise();
-}
-
-function prepareClockIn(moment) {
-    var userId = 1123; // TODO: Get it from somewhere
-    var data = {
-        timestamp: moment(),
-        userId: userId
-    };
-    return data;
-}
-
-function timeoutPromiseAfter(timeoutMs, promise) {
-    setTimeout(function () {
-        //if (!promise.isResolved()) { // Supported in later versions of jQuery
-        promise.reject('TIMEOUT!!!');
-        //}
-    }, timeoutMs);
-}
-
-function submitClockIn(ajax, payload, promise) {
-    return ajax(endpointUrl, payload).fail(function (data) {
-        promise.reject('Please no, don\'t do this, ' + data.statusCode);
-    });
 }
 
 if (typeof window === "undefined") {
