@@ -87,13 +87,19 @@ Retrospective
 
 ### 3: 2019-10-08
 
-* x h ... tbd
+* 1 h ... working on success no GPS branch
+* 2 h ... clean up
 
 Developer Joke: [Html5 Mask](https://twitter.com/nigel_ssj9/status/905016757483487235)
 
 Retrospective
 
-* tbd
+* code looks understandable, we reached milestone |||
+* more focus on standard JS
+* easier to follow |||
+* good progress on coding ||||
+* mutation coverage |||
+* somebody was tired, maybe have break earlier
 
 ### License
 
